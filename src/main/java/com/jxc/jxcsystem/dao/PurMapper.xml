@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxc.jxcsystem.dao.PurMapper">
+    <insert id="addNewPurtotal" parameterType="java.util.List">
+        insert into purtotal(purtoNo,purtoTime,purtoMan,purtoAppMan,purtoAppDep,purtoExplain,purtoPrices,purtoAuResult)
+        values (#{purtoNo},NOW(),#{purtoAppMan},#{purtoAppMan},#{purtoAppDep},#{purtoExplain},#{purtoPrices},'待审核')
+    </insert>
+    <insert id="addNewPur" parameterType="java.util.List">
+        insert into purdetail(goodsNo,purtoNo,purdeNum,purdeSub) values
+        <foreach collection="list" separator="," item="item">
+            (#{item.goodsNo},#{item.purtoNo},#{item.purdeNum},#{item.purdeSub})
+        </foreach>
+    </insert>
+    <select id="queryAll" resultType="purtotal">
+        select * from purtotal
+    </select>
+    <select id="queryApply" resultType="purtotal">
+        select * from purtotal where purtoAuResult="待审核"
+    </select>
+    <select id="queryDetail" resultType="java.util.Map">
+        select goodsName,purdeNum,purdeSub from purdetail LEFT JOIN goods on purdetail.goodsNo=goods.goodsNo where purtoNo=#{purtoNo}
+    </select>
+    <update id="apply">
+        update purtotal set purtoAuResult=#{result} where purtoNo=#{purtoNo}
+    </update>
+</mapper>

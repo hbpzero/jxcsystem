@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: /jxcsystem
+
+mybatis:
+  type-aliases-package: com.jxc.jxcsystem.pojo
+
+spring:
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql:///jxcsystem?serverTimezone=UTC
+      username: root
+      password: 123456
+  mvc:
+      view:
+        suffix: .jsp
+
+
+
+
+

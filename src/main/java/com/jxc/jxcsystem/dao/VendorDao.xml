@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxc.jxcsystem.dao.VendorDao">
+
+<insert id="getAddVen" parameterType="com.jxc.jxcsystem.pojo.Vendor">
+    insert into vendor(vendorId,vendorNo,vendorName,contact,contactPhone,vendorAddress,vendorPostbox,vendorBank,vendorBankId)values(#{vendorId},#{vendorNo},#{vendorName},#{contact},#{contactPhone},#{vendorAddress},#{vendorPostbox},#{vendorBank},#{vendorBankId})
+</insert>
+    <select id="selectVenById" resultType="com.jxc.jxcsystem.pojo.Vendor">
+        select * from vendor
+    </select>
+    <delete id="deleteVenById" parameterType="int">
+       delete from vendor where vendorId=#{vendorId}
+   </delete>
+    <update id="updateVenById" parameterType="com.jxc.jxcsystem.pojo.Vendor">
+        update vendor set vendorNo=#{vendorNo},vendorName=#{vendorName},contact=#{contact},contactPhone=#{contactPhone},vendorAddress=#{vendorAddress},vendorPostbox=#{vendorPostbox},vendorBank=#{vendorBank},vendorBankId=#{vendorBankId} where vendorId=#{vendorId}
+    </update>
+
+
+
+
+
+</mapper>
+
+

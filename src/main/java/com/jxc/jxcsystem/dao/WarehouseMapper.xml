@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxc.jxcsystem.dao.WarehouseMapper">
+    <select id="selectWarehous" resultType="java.util.Map">
+        select * from warehouse
+    </select>
+    <select id="selectWarehousTotal" resultType="java.util.Map" parameterType="int">
+        select * from warehousetotal w join goods g on w.goodsNo=g.goodsNo
+                                         join goodstype gt on g.goodstypeid=gt.goodsTypeId
+                                         where warehouseId=#{warehouseId}
+    </select>
+    <insert id="insertWarehouse" parameterType="String">
+        insert into warehouse (wareAddress) values(#{wareAddress})
+    </insert>
+    <select id="getAddress" parameterType="String" resultType="int">
+        select count(1) from warehouse where wareAddress=#{wareAddress}
+
+    </select>
+    <select id="selectType" resultType="java.util.Map">
+        select * from goodstype
+    </select>
+
+    <select id="selectByCheck" resultType="java.util.Map">
+        select * from warehousetotal w join goods g on w.goodsNo=g.goodsNo
+                                         join goodstype gt on g.goodstypeid=gt.goodsTypeId
+                                         where warehouseId=#{warehouseId}
+                                         <if test="goodsName!=null and goodsName!=''">
+                                           and g.goodsName LIKE CONCAT('%',#{goodsName},'%')
+                                         </if>
+                                         <if test="goodsTypeId!=null and goodsTypeId!=''">
+                                             and gt.goodsTypeId=#{goodsTypeId}
+                                         </if>
+
+    </select>
+</mapper>

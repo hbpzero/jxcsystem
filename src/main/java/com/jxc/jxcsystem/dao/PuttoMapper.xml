@@ -9,7 +9,7 @@
     </select>
     <insert id="insertPuttotal" parameterType="java.util.Map">
         insert into puttotal(puttoNo,puttoTime,puttoMan,puttoShiUnit,puttoAuResult)
-        values (#{puttoNo},#{puttoTime},#{puttoMan},null,'待审核')
+        values (#{puttoNo},#{puttoTime},#{puttoMan},null,'待入库')
     </insert>
     <insert id="insertPutdetail" parameterType="java.util.List">
         insert into putdetail(puttoNo,goodsNo,putdeNum,putdewareAddress)

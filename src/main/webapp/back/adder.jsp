@@ -12,6 +12,7 @@
 <head>
     <base href="http://localhost:8080/jxcsystem/">
     <title>增加供应商</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"></link>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 </head>
@@ -26,7 +27,7 @@
     <p>邮箱：<input type="text" id="vendorPostbox" name="vendorPostbox"/></p>
     <p>开户银行：<input type="text" id="vendorBank" name="vendorBank"/></p>
     <p>开户账号：<input type="text" id="vendorBankId" name="vendorBankId"/></p>
-    <p><button id="btn">提交</button>
+    <p><button class="btn btn-success" id="btn">提交</button>&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-success" id="bt45">重写</button>
 </form>
 <script>
 btn.onclick=function(){

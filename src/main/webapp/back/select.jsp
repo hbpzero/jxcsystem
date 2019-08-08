@@ -40,24 +40,25 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    &times;
-                </button>
+
                 <h4 class="modal-title" id="myModalLabel">
                     修改供应商信息
                 </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
             </div>
             <div class="modal-body">
                 <form id="myform2">
-                    <input class="vendorId" name="vendorId" placeholder="供应商ID" readonly/><br/>
-                    <input class="vendorNo" name="vendorNo" placeholder="供应商编号"/><br/>
-                    <input class="vendorName" name="vendorName" placeholder="名称"/><br/>
-                    <input class="contact" name="contact" placeholder="联系人"/><br/>
-                    <input class="contactPhone" name="contactPhone" placeholder="联系电话"/><br/>
-                    <input class="vendorAddress" name="vendorAddress" placeholder="地址"/><br/>
-                    <input class="vendorPostbox" name="vendorPostbox" placeholder="邮箱"/><br/>
-                    <input class="vendorBank" name="vendorBank" placeholder="开户账户"/><br/>
-                    <input class="vendorBankId" name="vendorBankId" placeholder="开户账号"/><br/>
+                    供应商ID <input class="vendorId" name="vendorId" placeholder="供应商ID" readonly/><br/>
+                    供应商编号 <input class="vendorNo" name="vendorNo" placeholder="供应商编号"/><br/>
+                    名称 <input class="vendorName" name="vendorName" placeholder="名称"/><br/>
+                    联系人 <input class="contact" name="contact" placeholder="联系人"/><br/>
+                    联系电话 <input class="contactPhone" name="contactPhone" placeholder="联系电话"/><br/>
+                    地址 <input class="vendorAddress" name="vendorAddress" placeholder="地址"/><br/>
+                    邮箱 <input class="vendorPostbox" name="vendorPostbox" placeholder="邮箱"/><br/>
+                    开户账户 <input class="vendorBank" name="vendorBank" placeholder="开户账户"/><br/>
+                    开户账号 <input class="vendorBankId" name="vendorBankId" placeholder="开户账号"/><br/>
 
                 </form>
             </div>

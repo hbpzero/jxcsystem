@@ -13,16 +13,64 @@
             (#{item.goodsNo},#{item.purtoNo},#{item.purdeNum},#{item.purdeSub})
         </foreach>
     </insert>
-    <select id="queryAll" resultType="purtotal">
+    <select id="queryAll" resultType="purtotal" parameterType="user">
         select * from purtotal
+        <if test="userRole!=1">
+            where purtoAppMan=#{userName}
+        </if>
+    </select>
+    <select id="queryBypurNo" resultType="purtotal">
+        select * from purtotal where purtoNo=#{purtoNo}
     </select>
     <select id="queryApply" resultType="purtotal">
-        select * from purtotal where purtoAuResult="待审核"
+        select * from purtotal where
+        <choose>
+            <when test="point!=null and point==1">
+                purtoAuResult="待审核"
+            </when>
+            <when test="point!=null and point==2">
+                purtoAuResult="已通过"
+            </when>
+            <when test="point!=null and point==3">
+                purtoAuResult="采购完成"
+            </when>
+        </choose>
+
+
     </select>
     <select id="queryDetail" resultType="java.util.Map">
-        select goodsName,purdeNum,purdeSub from purdetail LEFT JOIN goods on purdetail.goodsNo=goods.goodsNo where purtoNo=#{purtoNo}
+        select goodsName,purdetail.goodsNo,purdetail.purtoNo,purdeNum,purdeSub from purdetail LEFT JOIN goods on purdetail.goodsNo=goods.goodsNo where purtoNo=#{purtoNo}
     </select>
     <update id="apply">
         update purtotal set purtoAuResult=#{result} where purtoNo=#{purtoNo}
     </update>
+    
+    <select id="search" resultType="purtotal">
+        select * from  purtotal
+        <where>
+            <if test="purtoNo!=null and purtoNo!=''">
+                 purtoNo=#{purtoNo}
+            </if>
+            <if test="purtoTime!=null and purtoTime!=''">
+               and date_format(purtoTime,'%Y-%m-%d')=#{purtoTime}
+            </if>
+            <if test="purtoAppMan!=null and purtoAppMan!=''">
+                and purtoAppMan=#{purtoAppMan}
+            </if>
+            <if test="purtoAppDep!=null and purtoAppDep!=''">
+                and purtoAppDep=#{purtoAppDep}
+            </if>
+            and purtoAuResult="采购完成"
+        </where>
+    </select>
+
+    <select id="getTotalPriceThisMonth" resultType="float">
+        SELECT SUM(purtoPrices) FROM purtotal WHERE DATE_FORMAT( purtoTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+    </select>
+
+    <select id="getPriceAyear" resultType="java.util.Map">
+        select MONTH(purtoTime) as 'month',SUM(purtoPrices) as price FROM purtotal
+        WHERE year(purtoTime)=YEAR(NOW()) and purtoAuResult="采购完成"
+        GROUP BY MONTH(purtoTime)
+    </select>
 </mapper>

@@ -13,7 +13,7 @@ public class VendorServiceImpl implements VendorService{
     @Resource
     private VendorDao vendorDao;
     @Override
-    public int addVenr(int vendorId,String vendorNo,String vendorName,String contact,int contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,int vendorBankId){
+    public int addVenr(int vendorId,String vendorNo,String vendorName,String contact,String contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,String vendorBankId){
         return vendorDao.getAddVen(vendorId,vendorNo,vendorName,contact,contactPhone,vendorAddress,vendorPostbox,vendorBank,vendorBankId);
     }
     @Override
@@ -23,7 +23,7 @@ public class VendorServiceImpl implements VendorService{
     @Override
     public int delete(int vendorId){return vendorDao.deleteVenById(vendorId);}
     @Override
-    public int modify(int vendorId,String vendorNo,String vendorName,String contact,int contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,int vendorBankId){
+    public int modify(int vendorId,String vendorNo,String vendorName,String contact,String contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,String vendorBankId){
         return vendorDao.updateVenById(vendorId,vendorNo,vendorName,contact,contactPhone,vendorAddress,vendorPostbox,vendorBank,vendorBankId);
     }
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxc.jxcsystem.dao.PutMapper">
+    <insert id="createPut" parameterType="puttotal">
+        insert into puttotal(puttoNo,puttoTime,puttoMan,puttoAuResult) values (#{puttoNo},NOW(),#{puttoMan},"待入库")
+    </insert>
+    <insert id="createDetail" parameterType="java.util.List">
+        insert into putdetail(puttoNo,goodsNo,putdeNum) values
+        <foreach collection="list" separator="," item="item">
+            (#{item.purtoNo},#{item.goodsNo},#{item.purdeNum})
+        </foreach>
+    </insert>
+    <select id="queryApply" resultType="puttotal">
+        select * from  puttotal where puttoAuResult="待入库"
+    </select>
+
+    <select id="queryDetail" resultType="java.util.Map">
+        SELECT putdetail.goodsNo,goodsName,goodsTypeName,goodsSize,unit,putdeNum,goodsName from putdetail
+        LEFT JOIN goods ON putdetail.goodsNo=goods.goodsNo
+        JOIN goodstype ON goods.goodstypeid=goodstype.goodsTypeId
+        where puttoNo=#{puttoNo}
+    </select>
+
+    <update id="complete">
+        update puttotal set puttoAuResult="已入库" where puttoNo=#{puttoNo}
+    </update>
+
+    <update id="setDetail">
+        update putdetail set putdeActNum=#{putdeActNum},putdewareAddress=#{putdewareAddress} where puttoNo=#{puttoNo} and goodsNo=#{goodsNo}
+    </update>
+</mapper>

@@ -24,7 +24,7 @@ public class VendorController {
     }
     @RequestMapping("/addVendor")
     @ResponseBody
-    public int addVendor(int vendorId,String vendorNo,String vendorName,String contact,int contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,int vendorBankId){
+    public int addVendor(int vendorId,String vendorNo,String vendorName,String contact,String contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,String vendorBankId){
         System.out.println(vendorId+"/"+vendorNo+"/"+vendorName+"/"+contact+"/"+contactPhone+"/"+vendorAddress+"/"+vendorPostbox+"/"+vendorBank+"/"+vendorBankId);
        return  vendorService.addVenr(vendorId,vendorNo,vendorName,contact,contactPhone,vendorAddress,vendorPostbox,vendorBank,vendorBankId);
     }
@@ -47,7 +47,7 @@ public class VendorController {
     }
     @RequestMapping("/updates")
     @ResponseBody
-    public int updates(int vendorId,String vendorNo,String vendorName,String contact,int contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,int vendorBankId) {
+    public int updates(int vendorId,String vendorNo,String vendorName,String contact,String contactPhone,String vendorAddress,String vendorPostbox,String vendorBank,String vendorBankId) {
         return vendorService.modify(vendorId,vendorNo,vendorName,contact,contactPhone,vendorAddress,vendorPostbox,vendorBank,vendorBankId);
     }
 }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxc.jxcsystem.dao.SellMapper">
+    <select id="queryComplete" resultType="java.util.Map">
+        select * from  selltotal where selltoOrdSta="已出库"
+    </select>
+    <select id="queryDetail" resultType="java.util.Map">
+        select * from selldetail left join goods on selldetail.goodsNo=goods.goodsNo where selltoNo=#{selltoNo}
+    </select>
+
+    <select id="searchSell" resultType="java.util.Map">
+        select * from  selltotal
+        <where>
+
+            <if test="selltoNo!=null and selltoNo!=''">
+                selltoNo=#{selltoNo}
+            </if>
+            <if test="selltoMan!=null and selltoMan!=''">
+                and selltoMan=#{selltoMan}
+            </if>
+            <if test="selltoClient!=null and selltoClient!=''">
+                and selltoClient=#{selltoClient}
+            </if>
+            <if test="selltoTime!=null and selltoTime!=''">
+                and date_format(selltoTime,'%Y-%m-%d')=#{selltoTime}
+            </if>
+            and selltoOrdSta="已出库"
+
+        </where>
+    </select>
+
+    <select id="getSellPriceThisMonth" resultType="float">
+        SELECT SUM(selltoPrices) FROM selltotal WHERE DATE_FORMAT( selltoTime, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+    </select>
+
+    <select id="getSellPriceThisYear" resultType="java.util.Map">
+        select MONTH(selltoTime) as 'month' ,SUM(selltoPrices) as price FROM selltotal
+        WHERE year(selltoTime)=YEAR(NOW()) and selltoOrdSta="已出库"
+        GROUP BY MONTH(selltoTime)
+    </select>
+</mapper>

@@ -1,7 +1,7 @@
 package com.jxc.jxcsystem.controller;
 
-import com.jxc.jxcsystem.pojo.PurDetail;
-import com.jxc.jxcsystem.pojo.PurTotal;
+import com.github.pagehelper.PageInfo;
+import com.jxc.jxcsystem.pojo.User;
 import com.jxc.jxcsystem.service.PurService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -30,14 +31,15 @@ public class PurController {
     }
     @RequestMapping(value = "/queryAll")
     @ResponseBody
-    public List<PurTotal> queryAll(){
-        return purService.queryAll();
+    public PageInfo queryAll(PageInfo pageInfo, HttpSession httpSession){
+        User userInfo=(User) httpSession.getAttribute("user");
+        return purService.queryAll(pageInfo,userInfo);
     }
 
     @RequestMapping(value = "/queryApply")
     @ResponseBody
-    public List<PurTotal> queryApply(){
-        return purService.queryApply();
+    public PageInfo queryApply(int point,PageInfo pageInfo){
+        return purService.queryApply(point,pageInfo);
     }
 
     @RequestMapping(value = "/queryDetail")
@@ -54,6 +56,8 @@ public class PurController {
             applyResult="已通过";
         else if (result==0)
             applyResult="未通过";
+        else if (result==2)
+            applyResult="采购完成";
         int flag=purService.apply(applyResult,purtoNo);
         if (flag>0)
             return "true";
@@ -61,6 +65,27 @@ public class PurController {
             return "false";
 
     }
+    @RequestMapping(value = "/getPurTotalPriceThisMonth")
+    @ResponseBody
+    public Float getPurTotalPriceThisMonth(){
+        return purService.getTotalPriceThisMonth();
+    }
+
+    @RequestMapping(value = "/getPurTotalPriceThisYear")
+    @ResponseBody
+    public List<Map> getPurTotalPriceThisYear(){
+        return purService.getPriceAyear();
+    }
+
+
+   @RequestMapping(value = "/search")
+   @ResponseBody
+   public PageInfo search(@RequestBody Map map){
+        return purService.search(map);
+   }
+
+    @RequestMapping(value = "/toConfirm")
+    public String toConfirm(){return "/back/purTotalConfirm";}
 
     @RequestMapping(value = "/toCheck")
     public String toCheck(){
@@ -69,4 +94,6 @@ public class PurController {
 
     @RequestMapping(value = "/toQuery")
     public String toQuery() {return "/back/purTotal";}
+
+
 }

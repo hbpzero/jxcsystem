@@ -32,7 +32,17 @@
     <tbody id="mytbd">
     </tbody>
 </table>
-
+<div style="position: fixed; bottom: 20px;">
+    当前是第<span id="currPage"></span>页，共<span id="totalpage"></span>页，
+    <button id="prevPage">上一页</button><button id="nextPage">下一页</button>
+    每页<select id="pageSize">
+    <option value="5">5</option>
+    <option value="2">2</option>
+    <option value="10">10</option>
+    <option value="15">15</option>
+    <option value="20">20</option>
+</select>条
+</div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -73,30 +83,46 @@
 </body>
 <script>
     $(function () {
-        query();
+        query(1,5);
 
     })
-    function query(){
+    var dataPage;
+    function query(pages,pageSize){
         $.ajax({
             url: "pur/queryApply",
             type: "post",
+            data: {"point":1,"pageNum":pages,"pageSize":pageSize},
             dataType: "json",
             success: function (data) {
                 //清空列表内容
                 $("#mytbd").html("");
-                for (var i=0;i<data.length;i++){
+                dataPage=data;
+                var info=data.list;
+                for (var i=0;i<info.length;i++){
                     var tr="<tr>"
 
-                    var day=data[i].purtoTime.substring(0,10)
-                    tr+="<td>"+data[i].purtoNo+"</td>"
+                    var day=info[i].purtoTime.substring(0,10)
+                    tr+="<td>"+info[i].purtoNo+"</td>"
                     tr+="<td>"+day+"</td>"
-                    tr+="<td>"+data[i].purtoAppMan+"</td>"
-                    tr+="<td>"+data[i].purtoAppDep+"</td>"
-                    tr+="<td>"+data[i].purtoPrices+"元</td>"
+                    tr+="<td>"+info[i].purtoAppMan+"</td>"
+                    tr+="<td>"+info[i].purtoAppDep+"</td>"
+                    tr+="<td>"+info[i].purtoPrices+"元</td>"
                     tr+="<td> <button type=\"button\" class=\"layui-btn layui-btn-normal\" onclick=\"apply(1,this)\"> 同意采购 </button> <button type=\"button\" class=\"layui-btn layui-btn-danger\" onclick=\"apply(0,this)\">拒绝采购 </button><button class=\"btn btn-primary btn-lg detail\" data-toggle=\"modal\" data-target=\"#myModal\" >详情 </button></td>"
                     tr+="</tr>"
                     $("#mytbd").append(tr)
 
+                }
+                $("#currPage").html(data.pageNum);
+                $("#totalpage").html(data.pages);
+                if(data.isFirstPage){
+                    $("#prevPage").hide();
+                }else{
+                    $("#prevPage").show();
+                }
+                if(data.isLastPage){
+                    $("#nextPage").hide();
+                }else{
+                    $("#nextPage").show();
                 }
 
 
@@ -148,5 +174,18 @@
 
 
     }
+    $("#nextPage").click(function(){
+        //将下一页的页码传到服务器
+        query(dataPage.nextPage,$("#pageSize").val());
+    })
+    $("#prevPage").click(function(){
+        //将上一页的页码传到服务器
+        query(dataPage.prePage,$("#pageSize").val());
+    })
+
+    $("#pageSize").change(function(){
+        query(dataPage.pageNum,$("#pageSize").val());
+
+    })
 </script>
 </html>

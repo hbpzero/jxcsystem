@@ -14,6 +14,10 @@ spring:
   mvc:
       view:
         suffix: .jsp
+  jackson:
+      date-format: yyyy-MM-dd KK:mm:ss
+
+
 
 
 

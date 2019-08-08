@@ -118,7 +118,10 @@
                 dataType: "text",
                 success:function (data) {
                     if (data=="true"){
-                        alert("提交成功");
+                        alert("提交成功,等待审核");
+                        getRandomNo();
+                        $("#mytbd").html("");
+                        num=0;
                     } else{
                         alert("失败");
                     }
@@ -133,11 +136,12 @@
             type:"post",
             dataType:"json",
             success:function(data) {
-                goodsinfo=data;
+                goodsinfo=data.list;
                 //清空下拉框中的子元素
 
-                for (var i in data) {
-                    var option = "<option value='" + data[i].goodsNo + "'>" + data[i].goodsName + "</option>";
+
+                for (var i=0;i<data.list.length;i++) {
+                    var option = "<option value='" + data.list[i].goodsNo + "'>" + data.list[i].goodsName + "</option>";
                     $("#mytbd .goodsname").eq(num).append(option);//当前行只会影响，不会影响其他行
 
                 }
@@ -168,9 +172,9 @@
         // alert($(this).parent().parent().children("td").eq(4).text());
         // alert($(this).val());
        var price=$(this).parent().parent().children("td").eq(4).text();
-       var num=$(this).val();
+       var number=$(this).val();
        var totalprice= $("#purtoPrices").val();
-       var sub=price*num;
+       var sub=price*number;
        $(this).parent().parent().children("td").eq(7).text(sub);
        var total=parseFloat(sub)+parseFloat(totalprice)
        //$("#purtoPrices").val(total);

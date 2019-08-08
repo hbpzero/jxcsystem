@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jxc.jxcsystem.dao.WareMapper">
+    <select id="queryAll" resultType="wareHouse">
+        select * from warehouse
+    </select>
+
+    <select id="judge" resultType="int">
+        select count(*) from warehouseTotal where goodsNo=#{goodsNo} and warehouseId=#{warehouseId}
+    </select>
+    <insert id="createNewGood" parameterType="java.util.Map">
+        insert into warehouseTotal(warehouseId,goodsNo,wGoodsNum)
+        values (#{warehouseId},#{goodsNo},#{wGoodsNum})
+    </insert>
+    <update id="updateGood" parameterType="java.util.Map">
+        update warehouseTotal set wGoodsNum=wGoodsNum+#{wGoodsNum} where goodsNo=#{goodsNo} and warehouseId=#{warehouseId}
+    </update>
+    <select id="findWareIdByAddress" resultType="int">
+        select warehouseId from warehouse where wareAddress=#{address}
+    </select>
+</mapper>

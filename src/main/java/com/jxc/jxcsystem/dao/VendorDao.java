@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 @Mapper
 public interface VendorDao {
-    int getAddVen(@Param("vendorId") int vendorId, @Param("vendorNo") String vendorNo, @Param("vendorName") String vendorName, @Param("contact") String contact, @Param("contactPhone") int contactPhone, @Param("vendorAddress") String vendorAddress, @Param("vendorPostbox") String vendorPostbox, @Param("vendorBank") String vendorBank, @Param("vendorBankId") int vendorBankId);
+    int getAddVen(@Param("vendorId") int vendorId, @Param("vendorNo") String vendorNo, @Param("vendorName") String vendorName, @Param("contact") String contact, @Param("contactPhone") String contactPhone, @Param("vendorAddress") String vendorAddress, @Param("vendorPostbox") String vendorPostbox, @Param("vendorBank") String vendorBank, @Param("vendorBankId") String vendorBankId);
     List<Vendor> selectVenById();
     int deleteVenById(@Param("vendorId") int vendorId);
-    int updateVenById(@Param("vendorId") int vendorId, @Param("vendorNo") String vendorNo, @Param("vendorName") String vendorName, @Param("contact") String contact, @Param("contactPhone") int contactPhone, @Param("vendorAddress") String vendorAddress, @Param("vendorPostbox") String vendorPostbox, @Param("vendorBank") String vendorBank, @Param("vendorBankId") int vendorBankId);
+    int updateVenById(@Param("vendorId") int vendorId, @Param("vendorNo") String vendorNo, @Param("vendorName") String vendorName, @Param("contact") String contact, @Param("contactPhone") String contactPhone, @Param("vendorAddress") String vendorAddress, @Param("vendorPostbox") String vendorPostbox, @Param("vendorBank") String vendorBank, @Param("vendorBankId") String vendorBankId);
 }

@@ -7,8 +7,8 @@ import com.jxc.jxcsystem.pojo.Vendor;
 import java.util.List;
 
 public interface VendorService {
-    int addVenr(int vendorId, String vendorNo, String vendorName, String contact, int contactPhone, String vendorAddress, String vendorPostbox, String vendorBank, int vendorBankId);
+    int addVenr(int vendorId, String vendorNo, String vendorName, String contact, String contactPhone, String vendorAddress, String vendorPostbox, String vendorBank, String vendorBankId);
     List<Vendor> select();
     int delete(int vendorId);
-    int modify(int vendorId, String vendorNo, String vendorName, String contact, int contactPhone, String vendorAddress, String vendorPostbox, String vendorBank, int vendorBankId);
+    int modify(int vendorId, String vendorNo, String vendorName, String contact, String contactPhone, String vendorAddress, String vendorPostbox, String vendorBank, String vendorBankId);
 }
